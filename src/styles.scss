@@ -21,11 +21,15 @@ $lm-frontend-theme: mat.define-theme((
   )
 ));
 
+@import 'colors';
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
   @include mat.all-component-themes($lm-frontend-theme);
+  --mdc-filled-text-field-container-color: #eff2f1;
+  --mdc-fab-container-color: #97d8c4;
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -37,4 +41,15 @@ $lm-frontend-theme: mat.define-theme((
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  background-color: $secondary-blue;
+}
+
+.flexgrow1 {
+  flex-grow: 1;
+}
+
+.width100 {
+  width: 100%
+}

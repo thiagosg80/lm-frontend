@@ -1,0 +1,47 @@
+@import '../colors';
+
+.mat-toolbar {
+    background-color: $primary-blue;
+    color: $secondary-grey;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chat-container {
+    background-color:$secondary-grey;
+    margin: 20px;
+    overflow: auto;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: sans-serif;
+    color: $primary-blue;
+    flex-grow: 1
+}
+
+.controls-container {
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.enviar-control {
+    margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+    .controls-container {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .enviar-control {
+        width: 100%;
+        margin-left: 0;
+    }
+}
