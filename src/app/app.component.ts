@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { Message } from './model/message';
+import { Sender } from './enum/sender';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,28 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'lm-frontend';
   clientInput: string = '';
+
+  sendMessage(messageInput: string): void {
+    if (messageInput) {
+      this.sendMessageNullSafe(messageInput);
+    }
+  }
+
+  @ViewChild('clientInputElement') clientInputElement!: ElementRef;
+
+  private sendMessageNullSafe(messageInput: string): void {
+    this.addMessage(messageInput, Sender.CLIENT);
+    this.clientInput = '';
+    this.clientInputElement.nativeElement.focus();
+  }
+
+  messages: Array<Message> = [];
+
+  private addMessage(messageInput: string, sender: string): void {
+    const MESSAGE = new Message;
+    MESSAGE.sender = sender;
+    MESSAGE.text = messageInput;
+    this.messages.push(MESSAGE);
+  }
 }

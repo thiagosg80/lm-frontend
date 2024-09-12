@@ -1,6 +1,7 @@
 <div class="container">
   <div>
     <mat-toolbar>
+      <mat-icon>chat</mat-icon>
       <span>
         GPT
       </span>
@@ -12,7 +13,8 @@
     <div class="flexgrow1">
       <mat-form-field class="width100">
         <mat-label>Seu texto</mat-label>
-        <input matInput type="text" [(ngModel)]="clientInput">
+        <input matInput type="text" [(ngModel)]="clientInput" #clientInputElement
+               (keyup.enter)="sendMessage(clientInput)">
         @if (clientInput) {
           <button matSuffix mat-icon-button aria-label="Clear" (click)="clientInput=''">
             <mat-icon>close</mat-icon>
@@ -21,7 +23,7 @@
       </mat-form-field>
     </div>
     <div>
-      <button mat-fab extended class="enviar-control">
+      <button mat-fab extended class="enviar-control" [disabled]="!clientInput" (click)="sendMessage(clientInput)">
         <mat-icon>arrow_upward</mat-icon>
         Enviar
       </button>
