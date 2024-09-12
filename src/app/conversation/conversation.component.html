@@ -1,0 +1,11 @@
+@for (m of messages; track $index) {
+    @if (m.sender == SENDER_CLIENT) {
+        <app-client-speech [message]="m">
+        </app-client-speech>
+    }
+
+    @if (m.sender == SENDER_SYSTEM) {
+        <app-system-speech [message]="m">
+        </app-system-speech>
+    }
+}

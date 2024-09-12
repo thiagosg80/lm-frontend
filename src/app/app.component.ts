@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { Message } from './model/message';
 import { Sender } from './enum/sender';
+import { ConversationComponent } from './conversation/conversation.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ import { Sender } from './enum/sender';
     MatInputModule,
     MatIconModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    ConversationComponent
   ],
 
   templateUrl: './app.component.html',
@@ -34,11 +36,14 @@ export class AppComponent {
   }
 
   @ViewChild('clientInputElement') clientInputElement!: ElementRef;
+  @ViewChild('chatContainerElement') chatContainerElement!: ElementRef;
 
   private sendMessageNullSafe(messageInput: string): void {
     this.addMessage(messageInput, Sender.CLIENT);
     this.clientInput = '';
     this.clientInputElement.nativeElement.focus();
+    const Y = this.chatContainerElement.nativeElement.scrollHeight;
+    this.chatContainerElement.nativeElement.scrollTo(0, Y);
   }
 
   messages: Array<Message> = [];

@@ -1,0 +1,12 @@
+@import '../../../../colors.scss';
+@import '../common-speech.component.scss';
+
+.system-speech-container {
+    @extend .common-speech-container;
+    margin-right: 50px;
+}
+
+.system-speech-icon {
+    padding-top: 10px;
+    margin-right: 10px;
+}
