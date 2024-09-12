@@ -30,6 +30,7 @@ $lm-frontend-theme: mat.define-theme((
   @include mat.all-component-themes($lm-frontend-theme);
   --mdc-filled-text-field-container-color: #eff2f1;
   --mdc-fab-container-color: #97d8c4;
+  --mdc-circular-progress-active-indicator-color: #eff2f1;
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
@@ -52,4 +53,8 @@ body {
 
 .width100 {
   width: 100%
+}
+
+.displaynone {
+  display: none;
 }

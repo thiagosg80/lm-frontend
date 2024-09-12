@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { Message } from './model/message';
 import { Sender } from './enum/sender';
 import { ConversationComponent } from './conversation/conversation.component';
+import { CommunicationService } from './service/communication.service';
+import { SnackBarService } from './service/snack-bar.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +23,8 @@ import { ConversationComponent } from './conversation/conversation.component';
     MatIconModule,
     FormsModule,
     MatButtonModule,
-    ConversationComponent
+    ConversationComponent,
+    MatProgressSpinnerModule
   ],
 
   templateUrl: './app.component.html',
@@ -37,13 +41,32 @@ export class AppComponent {
 
   @ViewChild('clientInputElement') clientInputElement!: ElementRef;
   @ViewChild('chatContainerElement') chatContainerElement!: ElementRef;
+  private communicationService: CommunicationService = inject(CommunicationService);
+  private snackBarService: SnackBarService = inject(SnackBarService);
+  isLoading: boolean = false;
 
   private sendMessageNullSafe(messageInput: string): void {
     this.addMessage(messageInput, Sender.CLIENT);
+    this.isLoading = true;
+
+    this.communicationService.getResponse(messageInput).subscribe({
+      next: response => { this.processSuccess(response) },
+      error: (e) => { this.processError(e) }
+    });
+  }
+
+  private processSuccess(response: Message): void {
+    this.messages.push(response);    
+    this.isLoading = false;
     this.clientInput = '';
     this.clientInputElement.nativeElement.focus();
     const Y = this.chatContainerElement.nativeElement.scrollHeight;
     this.chatContainerElement.nativeElement.scrollTo(0, Y);
+  }
+
+  private processError(input: any): void {
+    this.snackBarService.open('Erro na comunicação. ' + input.message);
+    this.isLoading = false;
   }
 
   messages: Array<Message> = [];
