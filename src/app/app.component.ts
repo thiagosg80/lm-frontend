@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
@@ -55,10 +55,13 @@ export class AppComponent {
     });
   }
 
+  private changeDetector: ChangeDetectorRef = inject(ChangeDetectorRef);
+
   private processSuccess(response: Message): void {
     this.messages.push(response);    
     this.isLoading = false;
     this.clientInput = '';
+    this.changeDetector.detectChanges();
     this.clientInputElement.nativeElement.focus();
     const Y = this.chatContainerElement.nativeElement.scrollHeight;
     this.chatContainerElement.nativeElement.scrollTo(0, Y);

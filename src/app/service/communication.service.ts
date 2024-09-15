@@ -12,18 +12,17 @@ export class CommunicationService {
   private httpClient: HttpClient = inject(HttpClient);
 
   getResponse(input: string): Observable<Message> {
-    const URL = environment.apiDomain.concat('chat/stream_log');
-    const BODY = {input: input, config: {}};
+    const QUERY_STRING: string = '?client_input='.concat(input);
+    const URL: string = environment.apiDomain.concat('messages').concat(QUERY_STRING);
 
-    return this.httpClient.post(URL, BODY).pipe(switchMap((i) => this.getHandleResponse(i)));
+    return this.httpClient.get(URL).pipe(switchMap((i) => this.getHandleResponse(i)));
   }
 
   private getHandleResponse(input: any): Observable<Message> {
-    console.log(input);
     return new Observable(observer => {
       const RESPONSE = new Message;
       RESPONSE.sender = Sender.SYSTEM;
-      RESPONSE.text = 'Sent system text';
+      RESPONSE.text = input.text;
       observer.next(RESPONSE);
     });
   }
