@@ -1,4 +1,4 @@
-import { Component, Input, IterableDiffers } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Message } from '../../../model/message';
 import { MatIconModule } from '@angular/material/icon';
 
