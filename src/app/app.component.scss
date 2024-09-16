@@ -20,7 +20,8 @@
     padding: 20px;
     border-radius: 20px;
     font-family: sans-serif;
-    flex-grow: 1
+    flex-grow: 1;
+    border: 6px solid $secondary-grey;
 }
 
 .controls-container {
