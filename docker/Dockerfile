@@ -1,3 +1,3 @@
-FROM nginx:stable-alpine3.17-slim
+FROM nginx:stable-alpine3.20-perl
 COPY /docker/nginx.conf /etc/nginx/nginx.conf
-COPY /dist/poc-lucas-01 /usr/share/nginx/html
+COPY /dist/lm-frontend /usr/share/nginx/html
